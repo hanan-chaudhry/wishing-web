@@ -1,0 +1,91 @@
+import { useState, useEffect, useCallback, Suspense } from 'react'
+import { Canvas } from '@react-three/fiber'
+import * as THREE from 'three'
+import SceneCanvas from './components/Canvas'
+import CameraControls from './components/CameraControls'
+import LoadingScreen from './components/LoadingScreen'
+import './index.css'
+
+/**
+ * Main application component.
+ * Sets up the Three.js canvas, loading screen, UI overlays, and scroll handling.
+ */
+export default function App() {
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [scrollProgress, setScrollProgress] = useState(0)
+
+  // Scroll listener to drive scroll‑based animations in the 3D scene.
+  const handleScroll = useCallback(() => {
+    const scrollY = window.scrollY
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight
+    const progress = Math.min(scrollY / maxScroll, 1)
+    setScrollProgress(progress)
+  }, [])
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [handleScroll])
+
+  // Cursor glow effect follows the mouse pointer.
+  useEffect(() => {
+    const glow = document.createElement('div')
+    glow.className = 'cursor-glow'
+    document.body.appendChild(glow)
+    const moveGlow = (e) => {
+      glow.style.left = `${e.clientX}px`
+      glow.style.top = `${e.clientY}px`
+    }
+    window.addEventListener('mousemove', moveGlow)
+    return () => {
+      window.removeEventListener('mousemove', moveGlow)
+      document.body.removeChild(glow)
+    }
+  }, [])
+
+  return (
+    <>
+      {/* Loading overlay – shows until the 3D assets are ready. */}
+      <LoadingScreen onComplete={() => setIsLoaded(true)} />
+
+      {/* UI overlay for title and scroll indicator */}
+      <div className="ui-overlay">
+        <section className="title-section">
+          <h1>Happy Birthday Suwat</h1>
+          <p>The button to next part is hidden somewhere you have to find it out</p>
+        </section>
+        <div className="scroll-indicator">
+          <span>Scroll</span>
+          <div className="arrow" />
+        </div>
+        <div className="hint-text">Zoom in and zoom out and move in 3d space to take a look at complete scene</div>
+      </div>
+
+      {/* The Three.js canvas */}
+      <Canvas
+        gl={{
+          antialias: true,
+          alpha: true,
+          stencil: false,
+          depth: true,
+          powerPreference: 'high-performance'
+        }}
+        shadows={{
+          enabled: true,
+          type: THREE.PCFSoftShadowMap
+        }}
+        camera={{ position: [0, 5, 10], fov: 50 }}
+        dpr={[1, 2]}
+        frameloop="always"
+        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+      >
+        <Suspense fallback={null}>
+          <SceneCanvas isLoaded={isLoaded} scrollProgress={scrollProgress} />
+        </Suspense>
+        {/* Camera controls – user can orbit/zoom after the initial animation */}
+        <CameraControls />
+      </Canvas>
+    </>
+  )
+}
+
