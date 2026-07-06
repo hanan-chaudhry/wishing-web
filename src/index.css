@@ -284,3 +284,51 @@ canvas {
     display: none;
   }
 }
+
+/* Scene toggle button */
+.scene-toggle {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  border-radius: 25px;
+  cursor: pointer;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+.scene-toggle.hidden-in-sun {
+  opacity: 0.9;
+  transform: scale(0.8);
+}
+
+.scene-toggle.hidden-in-sun:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+.scene-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.scene-toggle:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 768px) {
+  .scene-toggle {
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    font-size: 0.8rem;
+  }
+}

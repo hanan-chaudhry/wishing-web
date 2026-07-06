@@ -4,6 +4,8 @@ import * as THREE from 'three'
 import SceneCanvas from './components/Canvas'
 import CameraControls from './components/CameraControls'
 import LoadingScreen from './components/LoadingScreen'
+import RoseBoxScene from './components/RoseBoxScene'
+import TeddyBearScene from './components/TeddyBearScene'
 import './index.css'
 
 /**
@@ -13,6 +15,7 @@ import './index.css'
 export default function App() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
+  const [activeScene, setActiveScene] = useState('sunset')
 
   // Scroll listener to drive scroll‑based animations in the 3D scene.
   const handleScroll = useCallback(() => {
@@ -48,18 +51,32 @@ export default function App() {
       {/* Loading overlay – shows until the 3D assets are ready. */}
       <LoadingScreen onComplete={() => setIsLoaded(true)} />
 
-      {/* UI overlay for title and scroll indicator */}
-      <div className="ui-overlay">
-        <section className="title-section">
-          <h1>Happy Birthday Suwat</h1>
-          <p>The button to next part is hidden somewhere you have to find it out</p>
-        </section>
-        <div className="scroll-indicator">
-          <span>Scroll</span>
-          <div className="arrow" />
+      {/* UI overlay for title and scroll indicator - only in sunset scene */}
+      {activeScene === 'sunset' && (
+        <div className="ui-overlay">
+          <section className="title-section">
+            <h1>Happy Birthday Suwat</h1>
+            <p>Find 3 suns and then go to next part</p>
+          </section>
+          <div className="scroll-indicator">
+            <span>Scroll</span>
+            <div className="arrow" />
+          </div>
+          <div className="hint-text">Zoom in and zoom out and move in 3d space to take a look at complete scene</div>
         </div>
-        <div className="hint-text">Zoom in and zoom out and move in 3d space to take a look at complete scene</div>
-      </div>
+      )}
+
+      {/* Scene toggle button - hidden in sun, visible in rose box */}
+      <button 
+        className={`scene-toggle ${activeScene === 'sunset' ? 'hidden-in-sun' : ''}`}
+        onClick={() => {
+          if (activeScene === 'sunset') setActiveScene('rosebox')
+          else if (activeScene === 'rosebox') setActiveScene('teddy')
+          else setActiveScene('sunset')
+        }}
+      >
+        {activeScene === 'sunset' ? 'Next' : activeScene === 'rosebox' ? 'Next' : 'Back'}
+      </button>
 
       {/* The Three.js canvas */}
       <Canvas
@@ -80,7 +97,15 @@ export default function App() {
         style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
       >
         <Suspense fallback={null}>
-          <SceneCanvas isLoaded={isLoaded} scrollProgress={scrollProgress} />
+          {activeScene === 'sunset' && (
+            <SceneCanvas isLoaded={isLoaded} scrollProgress={scrollProgress} />
+          )}
+          {activeScene === 'rosebox' && (
+            <RoseBoxScene />
+          )}
+          {activeScene === 'teddy' && (
+            <TeddyBearScene />
+          )}
         </Suspense>
         {/* Camera controls – user can orbit/zoom after the initial animation */}
         <CameraControls />
