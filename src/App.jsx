@@ -6,6 +6,9 @@ import CameraControls from './components/CameraControls'
 import LoadingScreen from './components/LoadingScreen'
 import RoseBoxScene from './components/RoseBoxScene'
 import TeddyBearScene from './components/TeddyBearScene'
+import LetterScene from './components/LetterScene'
+import GiftCardScene from './components/GiftCardScene'
+import QuizScene from './components/QuizScene'
 import './index.css'
 
 /**
@@ -16,6 +19,7 @@ export default function App() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
   const [activeScene, setActiveScene] = useState('sunset')
+  const [showRoseText, setShowRoseText] = useState(false)
 
   // Scroll listener to drive scroll‑based animations in the 3D scene.
   const handleScroll = useCallback(() => {
@@ -66,50 +70,90 @@ export default function App() {
         </div>
       )}
 
-      {/* Scene toggle button - hidden in sun, visible in rose box */}
-      <button 
-        className={`scene-toggle ${activeScene === 'sunset' ? 'hidden-in-sun' : ''}`}
-        onClick={() => {
-          if (activeScene === 'sunset') setActiveScene('rosebox')
-          else if (activeScene === 'rosebox') setActiveScene('teddy')
-          else setActiveScene('sunset')
-        }}
-      >
-        {activeScene === 'sunset' ? 'Next' : activeScene === 'rosebox' ? 'Next' : 'Back'}
-      </button>
+      {/* Scene toggle button - hidden in sun and giftcard, visible in other scenes */}
+      {activeScene !== 'giftcard' && activeScene !== 'quiz' && (
+        <button 
+          className={`scene-toggle ${activeScene === 'sunset' ? 'hidden-in-sun' : ''}`}
+          onClick={() => {
+            if (activeScene === 'sunset') setActiveScene('giftcard')
+            else if (activeScene === 'rosebox') setActiveScene('teddy')
+            else if (activeScene === 'teddy') setActiveScene('quiz')
+            else if (activeScene === 'letter') setActiveScene('sunset')
+          }}
+        >
+          {activeScene === 'sunset' ? 'Next' : activeScene === 'letter' ? 'Back' : 'Next'}
+        </button>
+      )}
 
-      {/* The Three.js canvas */}
-      <Canvas
-        gl={{
-          antialias: true,
-          alpha: true,
-          stencil: false,
-          depth: true,
-          powerPreference: 'high-performance'
-        }}
-        shadows={{
-          enabled: true,
-          type: THREE.PCFSoftShadowMap
-        }}
-        camera={{ position: [0, 5, 10], fov: 50 }}
-        dpr={[1, 2]}
-        frameloop="always"
-        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-      >
-        <Suspense fallback={null}>
-          {activeScene === 'sunset' && (
-            <SceneCanvas isLoaded={isLoaded} scrollProgress={scrollProgress} />
-          )}
-          {activeScene === 'rosebox' && (
-            <RoseBoxScene />
-          )}
-          {activeScene === 'teddy' && (
-            <TeddyBearScene />
-          )}
-        </Suspense>
-        {/* Camera controls – user can orbit/zoom after the initial animation */}
-        <CameraControls />
-      </Canvas>
+      {/* The Three.js canvas - hidden when letter, giftcard, or quiz scene is active */}
+      {activeScene !== 'letter' && activeScene !== 'giftcard' && activeScene !== 'quiz' && (
+        <Canvas
+          gl={{
+            antialias: true,
+            alpha: true,
+            stencil: false,
+            depth: true,
+            powerPreference: 'high-performance'
+          }}
+          shadows={{
+            enabled: true,
+            type: THREE.PCFSoftShadowMap
+          }}
+          camera={{ position: [0, 5, 10], fov: 50 }}
+          dpr={[1, 2]}
+          frameloop="always"
+          style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+        >
+          <Suspense fallback={null}>
+            {activeScene === 'sunset' && (
+              <SceneCanvas isLoaded={isLoaded} scrollProgress={scrollProgress} />
+            )}
+            {activeScene === 'rosebox' && (
+              <RoseBoxScene />
+            )}
+            {activeScene === 'teddy' && (
+              <TeddyBearScene />
+            )}
+          </Suspense>
+          {/* Camera controls – user can orbit/zoom after the initial animation */}
+          <CameraControls />
+        </Canvas>
+      )}
+
+      {/* Letter scene - rendered outside Canvas as HTML/CSS */}
+      {activeScene === 'letter' && (
+        <LetterScene />
+      )}
+
+      {/* Gift card scene - rendered outside Canvas as HTML/CSS */}
+      {activeScene === 'giftcard' && (
+        <GiftCardScene 
+          onNavigate={(scene) => {
+            if (scene === 'rosebox') {
+              setShowRoseText(true)
+              setActiveScene('rosebox')
+            }
+          }} 
+        />
+      )}
+
+      {/* Quiz scene - rendered outside Canvas as HTML/CSS */}
+      {activeScene === 'quiz' && (
+        <QuizScene 
+          onNavigate={(scene) => {
+            if (scene === 'letter') {
+              setActiveScene('letter')
+            }
+          }} 
+        />
+      )}
+
+      {/* Rose box scene with text when coming from NO click */}
+      {activeScene === 'rosebox' && showRoseText && (
+        <div className="rose-text-overlay">
+          <p>But I am giving you...</p>
+        </div>
+      )}
     </>
   )
 }
