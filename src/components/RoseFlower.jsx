@@ -1,7 +1,7 @@
 import { useTexture } from '@react-three/drei'
 
 export default function RoseFlower({ position = [0, 0, 0], rotation = [0, 0, 0], scale = 1 }) {
-  const texture = useTexture('/rose.png')
+  const texture = useTexture(import.meta.env.BASE_URL + 'rose.png')
 
   return (
     <mesh position={position} rotation={rotation} scale={scale}>
