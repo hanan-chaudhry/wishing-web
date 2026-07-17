@@ -31,16 +31,24 @@ export default function Letter() {
             <p>
               Pata isse phle maine naw soocha tha k singer ban k gift donga &#128526; lkn phr maine khudko phle sunaye aur mujhe itne achy lagy k maien delete kr dia aur idea bhi drop kr dia &#128557;. Also on this day, i think k apko mere se jo
               gile shikwe hain unko kam kr lia jaye isse phle k woh itne zyada ho jayain. i think ek to mujhe pata bhi hai k "mai baatain ni btaata" to ouska scene yeh hai k pata ni uh ne note kia hai yah ni k meri nature ab thori ajeeb si ban gyi 
-              hai ab mai sirf sunta hon mai ous waqt tak ni bolta jab tak mujhe koi boly na. 
+              hai ab mai sirf sunta hon mai ous waqt tak ni bolta jab tak mujhe koi boly na. Aur mai sirf utni dair tak available rehta jab tak kisi ko meri zaroorat hai jab mai daikhta k zaroorat ni hai phr mai aahista aahista side hota rehta.
+              Side hone se yeh mtlb ni hai k mai ignore wagaira krta side hone ka mtlb yeh hai k mai bhi bas utni effort krta jitna saamne waala krta. Kyun k mera manna yeh hai k agr koi khush phr mera ous k sath hona yah na hona itna matter ni krta
+              agr woh mujhe apna maanta hai to woh khudi aa jayega woh suna hi hoga uh ne "jab insaan khush hota woh un k pass jata jo ousse psnd hai aur jab dukhi hota tab unki pass jaata jo ousko psnd krty".
             </p>
             <p>
-              Here&apos;s to new adventures, amazing memories, and all the blessings that await you in the coming year.
+              to main mudda yeh hai k ik k uh apni kaafi battles lar rhi obv insta reposts aur likes se pata chal hi jaata kbhi kbhi. so mai bolna yeh chah rha k at the end of the day whenever you feel heavy you can come to me no matter what happened.
+              han to mai bol yeh rha tha k chaahy hamare beech kuch bhi ho jaye itna to pakka hai k mai apko block ni krne waala mtlb aisa maan lete hain to chahy jo mrzi hai ap kbhi kisi tension yah dukh mai ho you can come to me. most probably mere pass
+              ous masle ka hal na bhi ho lkn mai sun longa mtlb mai poori koshish kronga k moral support k through apko comfort kron. phr chaahy ap sirf yeh bol k aao "ek sad bat hai" aur ap saari raat sirf yeh btao k kaise ap k paon k angoothy ka naakhun 
+              toot gya. I wouldn't mind aur yeh mai ous situation mai bol rha k hamari kafi saalon se baat bhi ni hui. To agr hamari baat ho rhi phr ap jo bhi masla le kr aaogi to obv mai sunonga and judge kbhi ni kronga. Aur dosra mai yeh to kbhi bhi ni
+              chaahonga k ap koi bhi battle akele laro bcz ik k jab akele phr ek dukh yeh bhi ban jaata, and ik how that exactly feels. so the conclusion is you can forget me in your good time but always remember you have someone to support you in bad times.
             </p>
             <p>
-              With love and warm wishes,
+              At last but not least happpppppy birthday to the only person i hate i wish k yeh din ap k lye bohut sari khushiyan laaye aur apka din special ho aur i pray k ap ka naseeb bohut khoob-surat ho. aur i also wish k allah jald se jald apko apne ghr bulaye 
+              aur istanbul bhi dikhaye. also and also i wish k uh ki zindagi mai kam se kam dukh aayain. kyun k zindagi hai dukhon k bagair kia faida but i wish k apko sabr aa jaye phr dukh itna dukh ni daingy also i wish k apka dil unn cheezon ko bhool jaye jo ap k lye ni leekhi.
+              also i wish k bas ap khushhhhh rhoo aur han ap kbhi apna spark mat chooro. 
             </p>
             <p className="signature">
-              Your Dushman
+              Yours __________ "iss blank space mai jo acha lagy lga lena"
             </p>
           </div>
         </div>

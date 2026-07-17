@@ -66,7 +66,7 @@ export default function App() {
             <span>Scroll</span>
             <div className="arrow" />
           </div>
-          <div className="hint-text">Zoom in and zoom out and move in 3d space to take a look at complete scene</div>
+          <div className="hint-text">Bhai 3d space hai zoom in zoom out kro aur object pakr k move kro</div>
         </div>
       )}
 
@@ -151,7 +151,7 @@ export default function App() {
       {/* Rose box scene with text when coming from NO click */}
       {activeScene === 'rosebox' && showRoseText && (
         <div className="rose-text-overlay">
-          <p>But I am giving you...</p>
+          <p>But I am giving you... yeh bhi 3d space hai</p>
         </div>
       )}
     </>
